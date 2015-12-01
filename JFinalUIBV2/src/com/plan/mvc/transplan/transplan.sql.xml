@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="plan.transplan">
+
+	<sql id="column_transplanunion">
+		<![CDATA[
+        	select  * from n_transplanunion where ${column_transplanunion} = ?
+    	]]>
+	</sql>
+	<!-- 分页查询：from -->
+	<sql id="splitPageSelect">
+		<![CDATA[
+        	select a.* ,b.receivername,b.transplancode
+
+
+    	]]>
+	</sql>
+
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_transplan a LEFT JOIN n_transplanunion b on a.ttransbscinfo_fk=b.ids
+			
+			where 1=1
+           <% if(!isEmpty(wastename)){ %>
+					and wastename like #'%$wastename$%'#
+			<% } %>
+
+			<% if(!isEmpty(wastetype)){ %>
+					and wastetype like #'%$wastetype$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+	<sql id="splitpageFrom">
+		<![CDATA[
+        	from
+        		n_transplan a LEFT JOIN n_transplanunion b on a.ttransbscinfo_fk=b.ids
+
+			where b.createdby='${ids}'
+           <% if(!isEmpty(wastename)){ %>
+					and wastename like #'%$wastename$%'#
+			<% } %>
+
+			<% if(!isEmpty(wastetype)){ %>
+					and wastetype like #'%$wastetype$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+	<sql id="addsplitpageFrom">
+		<![CDATA[
+        	from
+        		n_transplan a left join n_transplanunion b on a.ttransbscinfo_fk=b.ids
+
+			where ttransbscinfo_fk='${planfk}' and b.createdby='${ids}'
+           <% if(!isEmpty(wastename)){ %>
+					and wastename like #'%$wastename$%'#
+			<% } %>
+
+			<% if(!isEmpty(wastetype)){ %>
+					and wastetype like #'%$wastetype$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+</sql-statement>

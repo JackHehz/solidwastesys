@@ -1,0 +1,41 @@
+
+
+	
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+			
+			<div class="panel-heading">
+				<h4 class="panel-title"><span class="text-bold">编辑</span></h4>
+				<div class="panel-tools">										
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+			
+			<div class="panel-body">	
+			
+				<form id="editForm" action="${cxt!}/jf/driver/driver/update"
+					method="POST" role="form" class="form-horizontal">
+					<input type="hidden" name="driver.ids" value="${escapeXml(driver.ids!)}" >
+					
+					<% include("/driver/driver/form.html"){} %>
+					
+					<div class="form-group">
+						<div class="col-sm-2 col-sm-offset-3">
+							<% if(authUrl("/jf/driver/driver/update")){ %>
+								<button type="button" class="btn btn-red" 
+									onclick="platform_verify.formValiSubmit(this.form);">
+									${i18nMap["admin.common.submit"]}	
+									<i class="fa fa-arrow-circle-right"></i>
+								</button>
+							<% } %>
+						</div>
+					</div>
+				</form>
+				
+			</div>
+		
+		</div>
+	</div>
+</div>	

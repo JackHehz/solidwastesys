@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="msjwastecolldisp.msjwastecolldisp">
+
+	<sql id="splitPageSelect">
+		<![CDATA[
+        	select *
+    	]]>
+	</sql>
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_msjwastecolldisp
+			
+			where sys_createdby =  '${ids}'
+
+			<% if(!isEmpty(name)){ %>
+					and name like #'%$name$%'#
+			<% } %>
+
+			<% if(!isEmpty(wastetype)){ %>
+					and wastetype like #'%$wastetype$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+	
+</sql-statement>

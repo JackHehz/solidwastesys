@@ -1,0 +1,25 @@
+<div class="row">
+    <h4><span class="text-blue"> 驾驶员与车辆信息</span></h4>
+</div>
+<div class="row" id="driver">
+    <script type="text/javascript">
+        common_ajax.ajaxDiv("driver", "/jf/platform/test/driver?pageSize=10"); // 处理在一个页显示多个分页，分页输出{"divId" : "aaaaa", "formId" : "splitPage1"}
+    </script>
+</div>
+
+<div class="row" id="carinformation">
+    <script type="text/javascript">
+        common_ajax.ajaxDiv("carinformation", "/jf/platform/test/carinformation?pageSize=10"); // 处理在一个页显示多个分页，分页输出{"divId" : "aaaaa", "formId" : "splitPage1"}
+    </script>
+</div>
+
+
+
+
+<script type="text/javascript" src="${cxt!}/jsFile/rapido/platform/index/context.js"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        Context.init();
+    });
+</script>

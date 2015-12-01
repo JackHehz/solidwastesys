@@ -1,0 +1,193 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/transinfo/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+            <li class="active">网上预约</li>
+        </ol>
+    </div>
+</div>
+
+
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/transinfo/transwaste/wastelist" method="POST">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: BORDERED TABLE PANEL -->
+            <div class="panel panel-white">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="text-bold">废物信息列表</span>
+                    </h4>
+                    <div class="panel-tools">
+                        <% include("/common/panel-tools.html"){} %>
+                    </div>
+                </div>
+
+                <%
+                var edit = authUrl("/jf/transinfo/transwaste/edit");
+                var delete = authUrl("/jf/transinfo/transwaste/delete");
+                var view = authUrl("/jf/transinfo/transwaste/view");
+                %>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 space20">
+
+                            <button type="button" class="btn btn-success add-row"
+                                    onclick="common_ajax.ajaxMainPanel('/jf/transinfo/transwaste/toUrl?toUrl=/transinfo/transwaste/add.html');">
+                                添加废物 <i class="fa fa-plus"></i>
+                            </button>
+
+
+                            <% if(delete == true){ %>
+                            <button type="button" class="btn btn-red delete-row"
+                                    data-bb="deleteList" data-url="/jf/transinfo/transwaste/delete">
+                                ${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+                            </button>
+                            <% } %>
+
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover" id="dataTable">
+                        <thead>
+                        <tr>
+
+                            <th class="center hidden-xs" width="50">
+                                <input type="checkbox" name="checkAll" class="flat-grey selectall"
+                                       onchange="common_common.checkFunc('dataTable', this.checked);">
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'wastename')">
+                                废物名称	${orderBy("wastename")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'wastecode')">
+                                废物代码	${orderBy("wastecode")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'wastetype')">
+                                废物类别	${orderBy("wastetype")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'wasteunit')">
+                                计量单位${orderBy("wasteunit")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'wasteamount')">
+                                处置量	${orderBy("wasteamount")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splittranswaste', 'transstarttime')">
+                                处置时间	${orderBy("transstarttime")}
+                            </th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <% for(transwaste in splitPage.list){ %>
+                        <tr>
+                            <td class="center hidden-xs">
+                                <input type="checkbox" name="checkIds"
+                                       value="${transwaste.ids!}" class="flat-grey foocheck">
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["wastename"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["wastecode"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["wastetype"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["wasteunit"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["wasteamount"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transwaste["transstarttime"]!)}
+                            </td>
+
+
+
+                        </tr>
+                        <% } %>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="splitPageDiv">
+                        <% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+                    </div>
+
+                    <div class="row col-sm-2 col-sm-offset-9">
+                        <% if(authUrl("/jf/Enterprise/enterinfoProcess")){ %>
+                        <button type="button" class="btn btn-red"
+                                onclick="common_ajax.ajaxMainPanel(
+												'/jf/transinfo/transwaste/chenter');">
+                            下一步
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                        <% } %>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!-- end: BORDERED TABLE PANEL -->
+        </div>
+    </div>
+
+</form>
+
+<div class="modal fade Modal " id="WasteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg " style="width: 1100px;" role="document" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" action="${cxt!}/jf/transinfo/transwaste/save"
+                      method="POST" role="form" class="form-horizontal">
+
+                    <% include("/transinfo/transwaste/form.html"){} %>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 col-sm-offset-3">
+                            <% if(authUrl("/jf/transinfo/transwaste/save")){ %>
+                            <button type="button" data-dismiss="modal" class="btn btn-red"
+                                    onclick="platform_verify.formValiSubmit(this.form);">
+                                ${i18nMap["admin.common.submit"]}
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                            <% } %>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        common_form.init();
+    });
+</script>

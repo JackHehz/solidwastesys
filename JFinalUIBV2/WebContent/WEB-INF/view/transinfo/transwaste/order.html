@@ -1,0 +1,187 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/transinfo/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+            <li class="active">预约详情</li>
+        </ol>
+    </div>
+</div>
+
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/transinfo/transwaste/orderplan" method="POST">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: BORDERED TABLE PANEL -->
+            <div class="panel panel-white">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title"><span class="text-bold">预约查询</span></h4>
+                    <div class="panel-tools">
+                        <% include("/common/panel-tools.html"){} %>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label col-sm-offset-2" for="focusedInput">创建时间</label>
+                        <div class="col-sm-4">
+                            <input class="form-control focused" type="text"
+                                   name="_query.createdtime" value='${escapeXml(paramMap["_query.createdtime"])}'
+                                   maxlength="50" >
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-5 col-sm-offset-5">
+                            <button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPage");'>${i18nMap["admin.common.select"]}</button>
+                            <button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: BORDERED TABLE PANEL -->
+            <div class="panel panel-white">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="text-bold">预约列表</span>
+                    </h4>
+                    <div class="panel-tools">
+                        <% include("/common/panel-tools.html"){} %>
+                    </div>
+                </div>
+
+                <%
+                var delete = authUrl("/jf/transinfo/transwaste/deleteorder");
+                var view = authUrl("/jf/transinfo/transwaste/view");
+                %>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 space20">
+
+
+                            <% if(delete == true){ %>
+                            <button type="button" class="btn btn-red delete-row"
+                                    data-bb="deleteList" data-url="/jf/transinfo/transwaste/deleteorder">
+                                ${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+                            </button>
+                            <% } %>
+
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover" id="dataTable">
+                        <thead>
+                        <tr>
+
+                            <th class="center hidden-xs" width="50">
+                                <input type="checkbox" name="checkAll" class="flat-grey selectall"
+                                       onchange="common_common.checkFunc('dataTable', this.checked);">
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'generatorname')">
+                                转移单位	${orderBy("generatorname")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'generatoraddress')">
+                                转移单位地址	${orderBy("generatoraddress")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'generatorlinkman')">
+                                联系人	${orderBy("generatorlinkman")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'generatorlinkphone')">
+                                联系电话	${orderBy("generatorlinkphone")}
+                            </th>
+                            <th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'createdtime')">
+                                创建时间	${orderBy("createdtime")}
+                            </th>
+
+                            <th class="hidden-xs">
+                                ${i18nMap["admin.common.operation"]}
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <% for(transplans in splitPage.list){ %>
+                        <tr>
+                            <td class="center hidden-xs">
+                                <input type="checkbox" name="checkIds"
+                                       value="${transplans.ids!}" class="flat-grey foocheck">
+                            </td>
+                            <td>
+                                ${escapeXml(transplans["generatorname"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplans["generatoraddress"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplans["generatorlinkman"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplans["generatorlinkphone"]!)}
+                            </td>
+
+                            <td>
+                                ${escapeXml(transplans["createdtime"]!)}
+                            </td>
+
+                            <td class="hidden-xs">
+
+                                <% if(view == true){ %>
+                                <button type="button" class="btn btn-dark-yellow add-row"
+                                        onclick="common_ajax.ajaxMainPanel(
+												'/jf/transinfo/transwaste/viewwaste/${transplans.ids!}');">
+                                    ${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+                                </button>
+                                <% } %>
+
+
+                                <% if(delete == true){ %>
+                                <button type="button" class="btn btn-red delete-row"
+                                        data-bb="deleteOne"
+                                        data-url="/jf/transinfo/transwaste/deleteorder/${transplans.ids!}">
+                                    ${i18nMap["admin.common.delete"]}
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="splitPageDiv">
+                        <% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- end: BORDERED TABLE PANEL -->
+        </div>
+    </div>
+</form>
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        common_form.init();
+    });
+</script>

@@ -1,0 +1,201 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/contract/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li class="active">合同管理</li>
+		</ol>
+	</div>
+</div>
+						
+<form id="splitPagecar" class="form-horizontal" action="${cxt!}/jf/contract/contract" method="POST">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title"><span class="text-bold">合同查询</span></h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<div class="panel-body">		
+				  	<div class="form-group">
+				  	
+						<label class="col-sm-2 control-label" for="focusedInput">甲方单位</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.carnumber" value='${escapeXml(paramMap["_query.jiafang"])}'
+						 	maxlength="50" >
+						</div>
+								
+						<label class="col-sm-2 control-label" for="focusedInput">乙方单位</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.ownedenterprise" value='${escapeXml(paramMap["_query.yifang"])}'
+						 	maxlength="50" >
+						</div>
+
+				  	</div>
+				  	
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-5">
+							<button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPagecar");'>${i18nMap["admin.common.select"]}</button>
+							<button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
+						</div>
+				  	</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<span class="text-bold">合同列表</span>
+					</h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<%
+					var edit = authUrl("/jf/contract/contract/edit");
+					var delete = authUrl("/jf/contract/contract/delete");
+					var view = authUrl("/jf/contract/contract/view");
+				%>
+				
+				<div class="panel-body">
+					
+					<div class="row">
+						<div class="col-md-12 space20">
+						
+							<% if(authUrl("/contract/contract/add.html")){ %>
+								<button type="button" class="btn btn-success add-row" 
+									onclick="common_ajax.ajaxMainPanel('/jf/contract/contract/toUrl?toUrl=/contract/contract/add.html');">
+									添加合同 <i class="fa fa-plus"></i>
+								</button>
+							<% } %>	
+							
+							<% if(delete == true){ %>
+								<button type="button" class="btn btn-red delete-row" 
+									data-bb="deleteList" data-url="/jf/contract/contract/delete">
+									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+								</button>
+							<% } %>
+
+						</div>
+					</div>
+					
+					<table class="table table-bordered table-hover" id="dataTable">
+						<thead>
+							<tr>
+							
+								<th class="center hidden-xs" width="50">
+									<input type="checkbox" name="checkAll" class="flat-grey selectall" 
+										onchange="common_common.checkFunc('dataTable', this.checked);"> 
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'contractname')">
+									合同名称	${orderBy("contractname")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'jiafang')">
+									甲方单位	${orderBy("jiafang")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'ownedenterprise')">
+									乙方单位	${orderBy("yifang")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'date')">
+									签定日期${orderBy("date")}
+								</th>
+								
+								<th class="hidden-xs">
+									${i18nMap["admin.common.operation"]}
+								</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+							<% for(contract in splitPage.list){ %>
+							<tr>
+								<td class="center hidden-xs">
+									<input type="checkbox" name="checkIds" 
+										value="${contract.ids!}" class="flat-grey foocheck">
+								</td>
+								<td>
+										${escapeXml(contract["contractname"]!)}
+								</td>
+								<td>
+									${escapeXml(contract["jiafang"]!)}
+								</td>
+								<td>
+									${escapeXml(contract["yifang"]!)}
+								</td>
+								<td>
+									${escapeXml(contract["date"]!)}
+								</td>
+
+
+								<td class="hidden-xs">
+									<% if(view == true){ %>
+									<button type="button" data-toggle="modal" class="ajaxDialog btn btn-dark-yellow add-row"
+											data-url="/jf/contract/contract/view${contract.ids!}"
+											data-param='{ "ids" : "${contract.ids!}"}'>
+										${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+									</button>
+									<% } %>
+										
+									<% if(edit == true){ %>
+									<button type="button" class="btn btn-green edit-row" 
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/contract/contract/edit/${escapeXml(contract.ids!)}');">
+										${i18nMap["admin.common.edit"]} 
+										<i class="fa fa-edit"></i>
+									</button>
+									<% } %>
+									
+									<% if(delete == true){ %>
+									<button type="button" class="btn btn-red delete-row" 
+										data-bb="deleteOne" 
+										data-url="/jf/contract/contract/delete/${contract.ids!}">
+										${i18nMap["admin.common.delete"]} 
+										<i class="fa fa-trash-o"></i>
+									</button>
+									<% } %>
+								</td>
+							</tr>
+							<% } %>
+							
+						</tbody>
+					</table>
+					
+					<div class="row" id="splitPageDiv">
+						<% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+					</div>
+					
+				</div>
+			
+			</div>
+			<!-- end: BORDERED TABLE PANEL -->
+		</div>
+	</div>
+	
+</form>			
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		common_form.init();
+	});
+</script>

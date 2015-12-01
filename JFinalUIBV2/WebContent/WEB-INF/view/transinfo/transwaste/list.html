@@ -1,0 +1,76 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/transinfo/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li class="active">网上预约</li>
+		</ol>
+	</div>
+</div>
+
+<form id="transgenerator" class="form-horizontal" action="${cxt!}/jf/transinfo/transwaste/savegenerator" method="POST">
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				<h2 class="panel-heading">填写转移信息</h2>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						产生源企业<span class="symbol required"></span>
+					</label>
+					<div class="col-sm-7">
+						<input type="text" name="transplans.generatorname" value="${escapeXml(transplans.generatorname!)}"
+							   class="form-control" maxlength="10000" vMin="2" id="generatorname"
+							   vType="length" onblur="platform_verify.onblurVali(this);">                        </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						产生源地址 <span class="symbol required"></span>
+					</label>
+					<div class="col-sm-7">
+						<input type="text" name="transplans.generatoraddress" value="${escapeXml(transplans.generatoraddress!)}"
+							   class="form-control" maxlength="10000" vMin="2" id="generatoraddress"
+							   vType="length" onblur="platform_verify.onblurVali(this);">                        </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						联系电话 <span class="symbol required"></span>
+					</label>
+					<div class="col-sm-7">
+						<input type="text" name="transplans.generatorlinkphone" value="${escapeXml(transplans.generatorlinkphone!)}"
+							   class="form-control" maxlength="10000" vMin="2" id="generatorlinkphone"
+							   vType="length" onblur="platform_verify.onblurVali(this);">                        </div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">
+						联系人<span class="symbol required"></span>
+					</label>
+					<div class="col-sm-7">
+						<input type="text" name="transplans.generatorlinkman" value="${escapeXml(transplans.generatorlinkman!)}"
+							   class="form-control" maxlength="10000" vMin="2" id="generatorlinkman"
+							   vType="length" onblur="platform_verify.onblurVali(this);">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 col-sm-offset-9">
+						<% if(authUrl("/jf/plan/transplan/savegenerator")){ %>
+						<button type="button" class="btn btn-red"
+								onclick="platform_verify.formValiSubmit(this.form);">
+							下一步
+							<i class="fa fa-arrow-circle-right"></i>
+						</button>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		common_form.init();
+	});
+</script>

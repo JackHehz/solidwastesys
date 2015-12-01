@@ -1,0 +1,81 @@
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">年份</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.reportyear" value="${escapeXml(wastemonthreport.reportyear!)}"
+			class="form-control" maxlength="100" vMin="2" 
+			vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2"> 
+		<i class="fa fa-info-circle"></i> 1-50位任意字符 
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">月份</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.reportmonth" value="${escapeXml(wastemonthreport.reportmonth!)}"
+			   class="form-control" maxlength="100" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">填报单位</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.medicalorg" value="${escapeXml(wastemonthreport.medicalorg!)}"
+			   class="form-control" maxlength="100" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">经办人</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.trustee" value="${escapeXml(wastemonthreport.trustee!)}"
+			   class="form-control" maxlength="100" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">体积</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.totalinfectantvolumen" value="${escapeXml(wastemonthreport.totalinfectantvolumen!)}"
+			class="form-control" maxlength="10000" vMin="2" 
+			vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2"> 
+		<i class="fa fa-info-circle"></i> 1-50位任意字符 
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">重量</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.totalinfectantweight" value="${escapeXml(wastemonthreport.totalinfectantweight!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">填表日期</label>
+	<div class="col-sm-7">
+		<input type="text" name="wastemonthreport.reportdate" value="${escapeXml(wastemonthreport.reportdate!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>

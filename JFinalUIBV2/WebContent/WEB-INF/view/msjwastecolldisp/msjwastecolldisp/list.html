@@ -1,0 +1,221 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/msjwastecolldisp/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li class="active">经营日报</li>
+		</ol>
+	</div>
+</div>
+						
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/msjwastecolldisp/msjwastecolldisp" method="POST">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title"><span class="text-bold">日报查询</span></h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<div class="panel-body">		
+				  	<div class="form-group">
+				  	
+						<label class="col-sm-2 control-label" for="focusedInput">单位名称</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.name" value='${escapeXml(paramMap["_query.name"])}'
+						 	maxlength="50" >
+						</div>
+								
+						<label class="col-sm-2 control-label" for="focusedInput">废物类型</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.wastetype" value='${escapeXml(paramMap["_query.wastetype"])}'
+						 	maxlength="50" >
+						</div>
+
+				  	</div>
+				  	
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-5">
+							<button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPage");'>${i18nMap["admin.common.select"]}</button>
+							<button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
+						</div>
+				  	</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<span class="text-bold">日报列表</span>
+					</h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<%
+					var edit = authUrl("/jf/msjwastecolldisp/msjwastecolldisp/edit");
+					var delete = authUrl("/jf/msjwastecolldisp/msjwastecolldisp/delete");
+					var view = authUrl("/jf/msjwastecolldisp/msjwastecolldisp/view");
+				%>
+				
+				<div class="panel-body">
+					
+					<div class="row">
+						<div class="col-md-12 space20">
+						
+							<% if(authUrl("/msjwastecolldisp/msjwastecolldisp/add.html")){ %>
+								<button type="button" class="btn btn-success add-row" 
+									onclick="common_ajax.ajaxMainPanel('/jf/msjwastecolldisp/msjwastecolldisp/toUrl?toUrl=/msjwastecolldisp/msjwastecolldisp/add.html');">
+									添加日报 <i class="fa fa-plus"></i>
+								</button>
+							<% } %>	
+							
+							<% if(delete == true){ %>
+								<button type="button" class="btn btn-red delete-row" 
+									data-bb="deleteList" data-url="/jf/msjwastecolldisp/msjwastecolldisp/delete">
+									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+								</button>
+							<% } %>
+
+						</div>
+					</div>
+
+					<table class="table table-bordered table-hover" id="dataTable">
+						<thead>
+						<tr>
+
+							<th class="center hidden-xs" width="50">
+								<input type="checkbox" name="checkAll" class="flat-grey selectall"
+									   onchange="common_common.checkFunc('dataTable', this.checked);">
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'name')">
+								单位名称	${orderBy("name")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'date')">
+								日期	${orderBy("date")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wastetype')">
+								废物类型	${orderBy("wastetype")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'disnum')">
+								处置量(吨)	${orderBy("disnum")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wasteunit')">
+								处置剩余量(吨)	${orderBy("wasteunit")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'deaway')">
+								处置方式	${orderBy("deaway")}
+							</th>
+							<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'sys_created')">
+								创建日期	${orderBy("sys_created")}
+							</th>
+							<th class="hidden-xs">
+								${i18nMap["admin.common.operation"]}
+							</th>
+
+						</tr>
+						</thead>
+						<tbody>
+
+						<% for(msjwastecolldisp in splitPage.list){ %>
+						<tr>
+							<td class="center hidden-xs">
+								<input type="checkbox" name="checkIds"
+									   value="${msjwastecolldisp.ids!}" class="flat-grey foocheck">
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["name"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["date"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["wastetype"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["disnum"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["wasteunit"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["deaway"]!)}
+							</td>
+							<td>
+								${escapeXml(msjwastecolldisp["sys_created"]!)}
+							</td>
+							<td class="hidden-xs">
+
+								<% if(view == true){ %>
+								<button type="button" class="btn btn-dark-yellow add-row"
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/msjwastecolldisp/msjwastecolldisp/view/${msjwastecolldisp.ids!}');">
+									${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+								</button>
+								<% } %>
+
+
+								<% if(edit == true){ %>
+								<button type="button" class="btn btn-green edit-row"
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/msjwastecolldisp/msjwastecolldisp/edit/${escapeXml(msjwastecolldisp.ids!)}');">
+									${i18nMap["admin.common.edit"]}
+									<i class="fa fa-edit"></i>
+								</button>
+								<% } %>
+
+								<% if(delete == true){ %>
+								<button type="button" class="btn btn-red delete-row"
+										data-bb="deleteOne"
+										data-url="/jf/msjwastecolldisp/msjwastecolldisp/delete/${msjwastecolldisp.ids!}">
+									${i18nMap["admin.common.delete"]}
+									<i class="fa fa-trash-o"></i>
+								</button>
+								<% } %>
+							</td>
+						</tr>
+						<% } %>
+
+						</tbody>
+					</table>
+					
+					<div class="row" id="splitPageDiv">
+						<% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+					</div>
+					
+				</div>
+			
+			</div>
+			<!-- end: BORDERED TABLE PANEL -->
+		</div>
+	</div>
+	
+</form>			
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		common_form.init();
+	});
+</script>

@@ -1,0 +1,158 @@
+<div class="form-group ">
+	<label class="col-sm-2 control-label"></label>
+	<div class="col-sm-7">
+		<input type="hidden" name="transplans.ids" value="${escapeXml(transplans.ids!)}"
+			   class="form-control " maxlength="100" vMin="2" readonly="readonly"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+
+</div>
+
+
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">转移计划编号</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.transplancode" value="${escapeXml(transplans.transplancode!)}"
+			   class="form-control" maxlength="100" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">移出单位</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.generatorname" value="${escapeXml(transplans.generatorname!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">移出地址</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.generatoraddress" value="${escapeXml(transplans.generatoraddress!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">邮编</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.generatorpostcode" value="${escapeXml(transplans.generatorpostcode!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">移出单位联系人</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.generatorlinkman" value="${escapeXml(transplans.generatorlinkman!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">移出单位联系电话</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.generatorlinkphone" value="${escapeXml(transplans.generatorlinkphone!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">接收单位</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receivername" value="${escapeXml(transplans.receivername!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">地址</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receiveraddress" value="${escapeXml(transplans.receiveraddress!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">邮编</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receiverpostcode" value="${escapeXml(transplans.receiverpostcode!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">接收单位联系人</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receiverlinkman" value="${escapeXml(transplans.receiverlinkman!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">接收单位联系电话</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receiverlinkphone" value="${escapeXml(transplans.receiverlinkphone!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">经营许可证号</label>
+	<div class="col-sm-7">
+		<input type="text" name="transplans.receiverlicense" value="${escapeXml(transplans.receiverlicense!)}"
+			   class="form-control" maxlength="10000" vMin="2"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+

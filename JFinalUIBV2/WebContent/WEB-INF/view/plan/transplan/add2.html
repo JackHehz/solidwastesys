@@ -1,0 +1,245 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/plan/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+            <li class="active">转移计划</li>
+        </ol>
+    </div>
+</div>
+
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/plan/transplan/add" method="POST">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- start: BORDERED TABLE PANEL -->
+            <div class="panel panel-white">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <span class="text-bold">转移计划列表</span>
+                    </h4>
+                    <div class="panel-tools">
+                        <% include("/common/panel-tools.html"){} %>
+                    </div>
+                </div>
+
+                <%
+                var edit = authUrl("/jf/plan/transplan/edit");
+                var delete = authUrl("/jf/plan/transplan/delete");
+                var view = authUrl("/jf/plan/transplan/view");
+                %>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12 space20">
+
+
+                            <button type="button" class="btn btn-success add-row"
+                                    onclick="common_ajax.ajaxMainPanel('/jf/plan/transplan/toUrl?toUrl=/plan/transplan/wasteadd.html');">
+                                添加转移信息 <i class="fa fa-plus"></i>
+                            </button>
+
+
+                            <% if(delete == true){ %>
+                            <button type="button" class="btn btn-red delete-row"
+                                    data-bb="deleteList" data-url="/jf/plan/transplan/delete">
+                                ${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+                            </button>
+                            <% } %>
+
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover" id="dataTable">
+                        <thead>
+                        <tr>
+
+                            <th class="center hidden-xs" width="50">
+                                <input type="checkbox" name="checkAll" class="flat-grey selectall"
+                                       onchange="common_common.checkFunc('dataTable', this.checked);">
+                            </th>
+
+                            <th class="hidden-xs" >
+                                废物名称	${orderBy("wastename")}
+                            </th>
+                            <th class="hidden-xs" >
+                                废物类别	${orderBy("wastetype")}
+                            </th>
+                            <th class="hidden-xs">
+                                废物代码	${orderBy("wastecode")}
+                            </th>
+                            <th class="hidden-xs">
+                                转移数量	${orderBy("wasteamount")}
+                            </th>
+                            <th class="hidden-xs">
+                                单位	${orderBy("wasteunit")}
+                            </th>
+                            <th class="hidden-xs" >
+                                转移批次	${orderBy("transbatch")}
+                            </th>
+                            <th class="hidden-xs" >
+                                转移开始时间	${orderBy("transstarttime")}
+                            </th>
+                            <th class="hidden-xs" >
+                                转移结束时间${orderBy("transendtime")}
+                            </th>
+                            <th class="hidden-xs">
+                                危险废物处置方式${orderBy("wastetreatment")}
+                            </th>
+
+                            <!--<th class="hidden-xs" onclick="common_splitPage.orderbyFun(-->
+                            <!--'mainPanel', 'splitPage', 'createtime')">-->
+                            <!--创建时间	${orderBy("createtime")}-->
+                            <!--</th>-->
+                            <th class="hidden-xs">
+                                ${i18nMap["admin.common.operation"]}
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <% for(transplan in splitPage.list){ %>
+                        <tr>
+                            <td class="center hidden-xs">
+                                <input type="checkbox" name="checkIds"
+                                       value="${user.ids!}" class="flat-grey foocheck">
+                            </td>
+
+                            <td>
+                                ${escapeXml(transplan["wastename"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["wastetype"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["wastecode"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["wasteamount"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["wasteunit"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["transbatch"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["transstarttime"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["transendtime"]!)}
+                            </td>
+                            <td>
+                                ${escapeXml(transplan["wastetreatment"]!)}
+                            </td>
+
+
+                            <!--<td>-->
+                            <!--${transplan.createtime !, dateFormat="yyyy-MM-dd HH:mm:ss.SSS"}-->
+                            <!--</td>-->
+                            <td class="hidden-xs">
+                                <% if(view == true){ %>
+                                <button type="button" class="btn btn-dark-yellow add-row"
+                                        onclick="common_ajax.ajaxMainPanel(
+												'/jf/plan/transplan/view/${transplan.ids!}');">
+                                    ${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+                                </button>
+                                <% } %>
+
+                                <% if(edit == true){ %>
+                                <button type="button" class="btn btn-green edit-row"
+                                        onclick="common_ajax.ajaxMainPanel(
+												'/jf/plan/transplan/edit/${escapeXml(transplan.ids!)}');">
+                                    ${i18nMap["admin.common.edit"]}
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <% } %>
+
+                                <% if(delete == true){ %>
+                                <button type="button" class="btn btn-red delete-row"
+                                        data-bb="deleteOne"
+                                        data-url="/jf/plan/transplan/delete/${transplan.ids!}">
+                                    ${i18nMap["admin.common.delete"]}
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+
+                        </tbody>
+                    </table>
+
+                    <div class="row" id="splitPageDiv">
+                        <% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+                    </div>
+                    <div class="row col-sm-offset-6">
+                        <button type="button" class="btn btn-green "
+                                onclick="common_ajax.ajaxMainPanel(
+												'/jf/plan/transplan');">
+                            完成
+
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- end: BORDERED TABLE PANEL -->
+        </div>
+    </div>
+
+</form>
+
+<div class="modal fade transplanModal " id="transplanModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg " style="width: 1100px;" role="document" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" action="${cxt!}/jf/plan/transplan/savetransplan"
+                      method="POST" role="form" class="form-horizontal">
+
+                    <% include("/plan/transplan/form2.html"){} %>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 col-sm-offset-3">
+                            <% if(authUrl("/jf/plan/transplan/savetransplan")){ %>
+                            <button type="button" class="btn btn-red"
+                                    data-dismiss="modal"
+                                    onclick="platform_verify.formValiSubmit(this.form);">
+                                ${i18nMap["admin.common.submit"]}
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                            <% } %>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script src="${cxt!}/ui/rapido/assets/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+<script src="${cxt!}/ui/rapido/assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        common_form.init();
+    });
+</script>

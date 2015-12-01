@@ -1,0 +1,522 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/rregisterinfo/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/rregisterinfo/rregisterinfo');">申报废物管理</a></li>
+			<li class="active">查看</li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+			
+			<div class="panel-heading">
+				<h4 class="panel-title"><span class="text-bold">查看</span></h4>
+				<div class="panel-tools">										
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+			
+			<div class="panel-body">	
+				<form role="form" class="form-horizontal">
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">单位名称</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								   readonly="readonly" value="${escapeXml(enterinfo.name!)}">
+						</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label">单位组织机构代码</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control"
+							   readonly="readonly" value="${escapeXml(enterinfo.unitorgcode!)}">
+					</div>
+			</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">单位地址</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" 
+							readonly="readonly" value="${escapeXml(rregisterinfo.furnishaddress!)}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">年份</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" 
+							readonly="readonly" value="${escapeXml(rregisterinfo.regyear!)}">
+						</div>
+					</div>
+
+				</form>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<span class="text-bold">申报废物列表</span>
+				</h4>
+				<div class="panel-tools">
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+
+			<%
+			var editwaste = authUrl("/jf/rregisterinfo/rregisterinfo/editwaste");
+			var deletewaste = authUrl("/jf/rregisterinfo/rregisterinfo/deletewaste");
+			var viewwaste = authUrl("/jf/rregisterinfo/rregisterinfo/viewwaste");
+			%>
+
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-12 space20">
+
+						<% if(authUrl("/rregisterinfo/rregisterinfo/addwaste.html")){ %>
+						<button type="button" class="btn btn-success add-row"
+								onclick="common_ajax.ajaxMainPanel('/jf/rregisterinfo/rregisterinfo/toUrl?toUrl=/rregisterinfo/rregisterinfo/addwaste.html');">
+							添加申报废物 <i class="fa fa-plus"></i>
+						</button>
+						<% } %>
+
+						<% if(deletewaste == true){ %>
+						<button type="button" class="btn btn-red delete-row"
+								data-bb="deleteList" data-url="/jf/rregisterinfo/rregisterinfo/deletewaste">
+							${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+						</button>
+						<% } %>
+
+					</div>
+				</div>
+
+				<table class="table table-bordered table-hover" id="dataTable1">
+					<thead>
+					<tr>
+
+						<th class="center hidden-xs" width="50">
+							<input type="checkbox" name="checkAll" class="flat-grey selectall"
+								   onchange="common_common.checkFunc('dataTable1', this.checked);">
+						</th>
+						<th class="hidden-xs" >
+							申报年份
+						</th>
+						<th class="hidden-xs" >
+							废物名称
+						</th>
+						<th class="hidden-xs">
+							废物代码
+						</th>
+
+						<th class="hidden-xs" >
+							产生量
+						</th>
+						<th class="hidden-xs" >
+							计量单位
+						</th>
+						<th class="hidden-xs">
+							产生源
+						</th>
+						<th class="hidden-xs" >
+							产生工艺名称
+						</th>
+
+						<th class="hidden-xs">
+							${i18nMap["admin.common.operation"]}
+						</th>
+
+					</tr>
+					</thead>
+					<tbody>
+
+					<% for(rregisterinfowaste in splitPagewaste.list){ %>
+					<tr>
+						<td class="center hidden-xs">
+							<input type="checkbox" name="checkIds"
+								   value="${rregisterinfowaste.ids!}" class="flat-grey foocheck">
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["regyear"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["wastename"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["wastecode"]!)}
+						</td>
+
+
+						<td>
+							${escapeXml(rregisterinfowaste["amount"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["unit"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["wastesource"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfowaste["artworklittletype"]!)}
+						</td>
+
+						<td class="hidden-xs">
+
+							<% if(viewwaste == true){ %>
+							<button type="button" class="btn btn-dark-yellow add-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/viewwaste/${rregisterinfowaste.ids!}');">
+								${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+							</button>
+							<% } %>
+
+
+							<% if(editwaste == true){ %>
+							<button type="button" class="btn btn-green edit-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/edit/${escapeXml(rregisterinfowaste.ids!)}');">
+								${i18nMap["admin.common.edit"]}
+								<i class="fa fa-edit"></i>
+							</button>
+							<% } %>
+
+							<% if(deletewaste == true){ %>
+							<button type="button" class="btn btn-red delete-row"
+									data-bb="deleteOne"
+									data-url="/jf/rregisterinfo/rregisterinfo/delete/${rregisterinfowaste.ids!}">
+								${i18nMap["admin.common.delete"]}
+								<i class="fa fa-trash-o"></i>
+							</button>
+							<% } %>
+						</td>
+					</tr>
+					<% } %>
+
+					</tbody>
+				</table>
+
+				<div class="row" id="splitPageDivwaste">
+					<% include("/common/splitPage.html", {"divId" : "rregisterinfowaste", "formId" : "splitPagewaste", "splitPageDiv" : "splitPageDivwaste"}){} %>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- end: BORDERED TABLE PANEL -->
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<span class="text-bold">单位存储废物列表</span>
+				</h4>
+				<div class="panel-tools">
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+
+			<%
+			var editreserve = authUrl("/jf/rregisterinfo/rregisterinfo/editreserve");
+			var deletereserve = authUrl("/jf/rregisterinfo/rregisterinfo/deletereserve");
+			var viewreserve = authUrl("/jf/rregisterinfo/rregisterinfo/viewreserve");
+			%>
+
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-12 space20">
+
+						<% if(authUrl("/rregisterinfo/rregisterinfo/addreserve.html")){ %>
+						<button type="button" class="btn btn-success add-row"
+								onclick="common_ajax.ajaxMainPanel('/jf/rregisterinfo/rregisterinfo/toUrl?toUrl=/rregisterinfo/rregisterinfo/addreserve.html');">
+							添加废物 <i class="fa fa-plus"></i>
+						</button>
+						<% } %>
+
+						<% if(deletereserve == true){ %>
+						<button type="button" class="btn btn-red delete-row"
+								data-bb="deleteList" data-url="/jf/rregisterinfo/rregisterinfo/deletereserve">
+							${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+						</button>
+						<% } %>
+
+					</div>
+				</div>
+
+				<table class="table table-bordered table-hover" id="dataTable2">
+					<thead>
+					<tr>
+
+						<th class="center hidden-xs" width="50">
+							<input type="checkbox" name="checkAll" class="flat-grey selectall"
+								   onchange="common_common.checkFunc('dataTable2', this.checked);">
+						</th>
+
+						<th class="hidden-xs" >
+							废物名称
+						</th>
+						<th class="hidden-xs" >
+							数量
+						</th>
+
+						<th class="hidden-xs">
+							计量单位
+						</th>
+
+						<th class="hidden-xs">
+							处置方式
+						</th>
+						<th class="hidden-xs">
+							${i18nMap["admin.common.operation"]}
+						</th>
+
+					</tr>
+					</thead>
+					<tbody>
+
+					<% for(rregisterinforeserve in splitPagereserve.list){ %>
+					<tr>
+						<td class="center hidden-xs">
+							<input type="checkbox" name="checkIds"
+								   value="${rregisterinforeserve.ids!}" class="flat-grey foocheck">
+						</td>
+
+						<td>
+							${escapeXml(rregisterinforeserve["wastename"]!)}
+						</td>
+
+
+
+						<td>
+							${escapeXml(rregisterinforeserve["amount"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinforeserve["wasteunit"]!)}
+						</td>
+
+						<td>
+							${escapeXml(rregisterinforeserve["managecode"]!)}
+						</td>
+
+
+
+						<td class="hidden-xs">
+
+							<% if(viewreserve == true){ %>
+							<button type="button" class="btn btn-dark-yellow add-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/viewreserve/${rregisterinforeserve.ids!}');">
+								${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+							</button>
+							<% } %>
+
+
+							<% if(editreserve == true){ %>
+							<button type="button" class="btn btn-green edit-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/editreserve/${escapeXml(rregisterinforeserve.ids!)}');">
+								${i18nMap["admin.common.edit"]}
+								<i class="fa fa-edit"></i>
+							</button>
+							<% } %>
+
+							<% if(deletereserve == true){ %>
+							<button type="button" class="btn btn-red delete-row"
+									data-bb="deleteOne"
+									data-url="/jf/rregisterinfo/rregisterinfo/delete/${rregisterinforeserve.ids!}">
+								${i18nMap["admin.common.delete"]}
+								<i class="fa fa-trash-o"></i>
+							</button>
+							<% } %>
+						</td>
+					</tr>
+					<% } %>
+
+					</tbody>
+				</table>
+
+				<div class="row" id="splitPageDivreserve">
+					<% include("/common/splitPage.html", {"divId" : "rregisterinforeserve", "formId" : "splitPagereserve", "splitPageDiv" : "splitPageDivreserve"}){} %>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- end: BORDERED TABLE PANEL -->
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<!-- start: BORDERED TABLE PANEL -->
+		<div class="panel panel-white">
+
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<span class="text-bold">提供或委托处理利用情况表</span>
+				</h4>
+				<div class="panel-tools">
+					<% include("/common/panel-tools.html"){} %>
+				</div>
+			</div>
+
+			<%
+			var editutilize = authUrl("/jf/rregisterinfo/rregisterinfo/editutilize");
+			var deleteutilize = authUrl("/jf/rregisterinfo/rregisterinfo/deleteutilize");
+			var viewutilize = authUrl("/jf/rregisterinfo/rregisterinfo/viewutilize");
+			%>
+
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-12 space20">
+
+						<% if(authUrl("/rregisterinfo/rregisterinfo/addutilize.html")){ %>
+						<button type="button" class="btn btn-success add-row"
+								onclick="common_ajax.ajaxMainPanel('/jf/rregisterinfo/rregisterinfo/toUrl?toUrl=/rregisterinfo/rregisterinfo/addutilize.html');">
+							添加 <i class="fa fa-plus"></i>
+						</button>
+						<% } %>
+
+						<% if(deleteutilize == true){ %>
+						<button type="button" class="btn btn-red delete-row"
+								data-bb="deleteList" data-url="/jf/rregisterinfo/rregisterinfo/deleteutilize">
+							${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+						</button>
+						<% } %>
+
+					</div>
+				</div>
+
+				<table class="table table-bordered table-hover" id="dataTable">
+					<thead>
+					<tr>
+
+						<th class="center hidden-xs" width="50">
+							<input type="checkbox" name="checkAll" class="flat-grey selectall"
+								   onchange="common_common.checkFunc('dataTable', this.checked);">
+						</th>
+						<th class="hidden-xs" >
+							废物名称
+						</th>
+						<th class="hidden-xs">
+							省份
+						</th>
+						<th class="hidden-xs" >
+							单位名称
+						</th>
+
+						<th class="hidden-xs" >
+							许可证号
+						</th>
+						<th class="hidden-xs" >
+							数量
+						</th>
+						<th class="hidden-xs" >
+							计量单位
+						</th>
+						<th class="hidden-xs" >
+							处置代码
+						</th>
+
+						<th class="hidden-xs">
+							${i18nMap["admin.common.operation"]}
+						</th>
+
+					</tr>
+					</thead>
+					<tbody>
+
+					<% for(rregisterinfoutilize in splitPagerutilize.list){ %>
+					<tr>
+						<td class="center hidden-xs">
+							<input type="checkbox" name="checkIds"
+								   value="${rregisterinfoutilize.ids!}" class="flat-grey foocheck">
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutilize["wastename"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutilize["province"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutlize["reserveunit"]!)}
+						</td>
+
+
+						<td>
+							${escapeXml(rregisterinfoutilize["licensecode"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutilize["amount"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutilize["wasteunit"]!)}
+						</td>
+						<td>
+							${escapeXml(rregisterinfoutilize["managecode"]!)}
+						</td>
+
+						<td class="hidden-xs">
+
+							<% if(viewutilize == true){ %>
+							<button type="button" class="btn btn-dark-yellow add-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/viewutilize/${rregisterinfoutilize.ids!}');">
+								${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+							</button>
+							<% } %>
+
+
+							<% if(editutilize == true){ %>
+							<button type="button" class="btn btn-green edit-row"
+									onclick="common_ajax.ajaxMainPanel(
+												'/jf/rregisterinfo/rregisterinfo/editutilize/${escapeXml(rregisterinfoutilize.ids!)}');">
+								${i18nMap["admin.common.edit"]}
+								<i class="fa fa-edit"></i>
+							</button>
+							<% } %>
+
+							<% if(deleteutilize == true){ %>
+							<button type="button" class="btn btn-red delete-row"
+									data-bb="deleteOne"
+									data-url="/jf/rregisterinfo/rregisterinfo/deleteutilize/${rregisterinfoutilize.ids!}">
+								${i18nMap["admin.common.delete"]}
+								<i class="fa fa-trash-o"></i>
+							</button>
+							<% } %>
+						</td>
+					</tr>
+					<% } %>
+
+					</tbody>
+				</table>
+
+				<div class="row" id="splitPageDivutilize">
+					<% include("/common/splitPage.html", {"divId" : "rregisterinfoutilize", "formId" : "splitPagerutilize", "splitPageDiv" : "splitPageDivutilize"}){} %>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- end: BORDERED TABLE PANEL -->
+	</div>
+</div>
+
+

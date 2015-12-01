@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="transinfo.transwaste">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        	n_transwaste a left join n_test_transplanunion b on a.ttransbscinfo_fk=b.ids
+
+        	where ttransbscinfo_fk='${planfk}' and b.createdby='${ids}'
+			
+
+				
+    	]]>
+	</sql>
+
+
+	<sql id="splitpageplan">
+		<![CDATA[
+        	select distinct b.*
+
+
+
+    	]]>
+	</sql>
+	<sql id="splitpageFrom">
+		<![CDATA[
+        	from
+        	n_transwaste a right join n_test_transplanunion b on a.ttransbscinfo_fk=b.ids
+
+        	where  b.createdby='${ids}'
+
+        	<% if(!isEmpty(createdtime)){ %>
+					and title like #'%$createdtime$%'#
+			<% } %>
+
+
+
+    	]]>
+	</sql>
+
+	<sql id="onlinewaste">
+		<![CDATA[
+        	from
+        	n_transwaste a left join n_test_transplanunion b on a.ttransbscinfo_fk=b.ids
+
+        	where ttransbscinfo_fk='${planfk}' and b.createdby='${ids}'
+
+
+
+    	]]>
+	</sql>
+
+
+
+</sql-statement>

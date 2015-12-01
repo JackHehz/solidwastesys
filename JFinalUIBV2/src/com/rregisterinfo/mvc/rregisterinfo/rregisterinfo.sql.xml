@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="rregisterinfo.rregisterinfo">
+
+
+	<sql id="splitPageSelect">
+		<![CDATA[
+        	select a.*,b.*
+
+    	]]>
+	</sql>
+
+
+	<!-- 分页查询：from -->
+	<sql id="splitpageFrom">
+		<![CDATA[ 
+        	from 
+        		n_bcommonenterprises b right join  n_rregisterinfo a on createdby=sys_createdby
+			
+			where sys_createdby='${ids}'
+
+			<% if(!isEmpty(regyear)){ %>
+					and regyear like #'%$regyear$%'#
+			<% } %>
+
+			<% if(!isEmpty(furnishaddress)){ %>
+					and furnishaddress like #'%$furnishaddress$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+
+	<!--环保-->
+	<sql id="splitPageFrom">
+		<![CDATA[
+        	from
+        		n_rregisterinfo a left join n_bcommonenterprises b on createdby=sys_createdby
+
+			where 1=1
+
+			<% if(!isEmpty(regyear)){ %>
+					and regyear like #'%$regyear$%'#
+			<% } %>
+
+			<% if(!isEmpty(furnishaddress)){ %>
+					and furnishaddress like #'%$furnishaddress$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+
+
+	<sql id="splitwasteSelect">
+		<![CDATA[
+        	select *
+
+    	]]>
+	</sql>
+
+	<!--企业-->
+	<sql id="splitwasteFrom">
+		<![CDATA[
+        	from
+        		n_rregisterinfo   ,n_rindustryhazardouswastestable
+        		where rregisterinfo_fk=n_rregisterinfo.ids and n_rregisterinfo.sys_createdby='${ids}'
+
+    	]]>
+	</sql>
+
+	<!--企业-->
+	<sql id="splitreserveFrom">
+		<![CDATA[
+        	from
+        		n_rreservewaste ,n_rindustryhazardouswastestable
+        		where rindustryhazardouswastestable_fk=n_rindustryhazardouswastestable.ids and sys_createdby='${ids}'
+
+
+
+
+    	]]>
+	</sql>
+
+
+
+
+	<!--企业-->
+	<sql id="splitrutilizeFrom">
+		<![CDATA[
+        	from
+        		n_rutilizewaste ,n_rindustryhazardouswastestable
+        		where rindustryhazardouswastestable_fk=n_rindustryhazardouswastestable.ids and sys_createdby='${ids}'
+
+
+
+
+    	]]>
+	</sql>
+
+
+
+
+
+</sql-statement>

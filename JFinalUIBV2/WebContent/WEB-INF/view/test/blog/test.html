@@ -1,0 +1,18 @@
+<script type="text/javascript" src="<%=basepath%>dwr/engine.js"></script>
+
+<script type="text/javascript" src="<%=basepath%>dwr/util.js"></script>
+
+<script type="text/javascript" src="<%=basepath%>dwr/interface/MessagePush.js"></script>
+<script type="text/javascript">
+    function onPageLoad(){
+
+        var userId = '${user.ids}';
+
+        MessagePush.onPageLoad(userId);
+
+    }
+</script>
+
+<body onload="dwr.engine.setActiveReverseAjax(true);dwr.engine.setNotifyServerOnPageUnload(true);onPageLoad()";>
+
+

@@ -1,0 +1,218 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/manageplan/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li class="active">管理计划</li>
+		</ol>
+	</div>
+</div>
+						
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/manageplan/wastemanageplan" method="POST">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title"><span class="text-bold">管理计划查询</span></h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<div class="panel-body">		
+				  	<div class="form-group">
+				  	
+						<label class="col-sm-2 control-label" for="focusedInput">状态</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.statename" value='${escapeXml(paramMap["_query.statename"])}'
+						 	maxlength="50" >
+						</div>
+								
+						<label class="col-sm-2 control-label" for="focusedInput">年份</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.year" value='${escapeXml(paramMap["_query.year"])}'
+						 	maxlength="50" >
+						</div>
+
+				  	</div>
+				  	
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-5">
+							<button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPage");'>${i18nMap["admin.common.select"]}</button>
+							<button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
+						</div>
+				  	</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<span class="text-bold">年度管理计划列表</span>
+					</h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<%
+					var edit = authUrl("/jf/manageplan/wastemanageplan/edit");
+					var delete = authUrl("/jf/manageplan/wastemanageplan/delete");
+					var view = authUrl("/jf/manageplan/wastemanageplan/view");
+				%>
+				
+				<div class="panel-body">
+					
+					<div class="row">
+						<div class="col-md-12 space20">
+						
+							<% if(authUrl("/manageplan/wastemanageplan/add.html")){ %>
+								<button type="button" class="btn btn-success add-row" 
+									onclick="common_ajax.ajaxMainPanel('/jf/manageplan/wastemanageplan/toUrl?toUrl=/manageplan/wastemanageplan/add.html');">
+									添加年度管理计划 <i class="fa fa-plus"></i>
+								</button>
+							<% } %>	
+							
+							<% if(delete == true){ %>
+								<button type="button" class="btn btn-red delete-row" 
+									data-bb="deleteList" data-url="/jf/manageplan/wastemanageplan/delete">
+									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+								</button>
+							<% } %>
+
+						</div>
+					</div>
+					
+					<table class="table table-bordered table-hover" id="dataTable">
+						<thead>
+							<tr>
+							
+								<th class="center hidden-xs" width="50">
+									<input type="checkbox" name="checkAll" class="flat-grey selectall" 
+										onchange="common_common.checkFunc('dataTable', this.checked);"> 
+								</th>
+
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'year')">
+									年份	${orderBy("year")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'documentname')">
+									文件	${orderBy("documentname")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'environmentname')">
+									部门负责人	${orderBy("environmentname")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'environmentphone')">
+									部门联系电话	${orderBy("environmentphone")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'sys_created')">
+									创建时间	${orderBy("sys_created")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'statename')">
+									状态	${orderBy("statename")}
+								</th>
+								<th class="hidden-xs">
+									${i18nMap["admin.common.operation"]}
+								</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+							
+							<% for(wastemanageplan in splitPage.list){ %>
+							<tr>
+								<td class="center hidden-xs">
+									<input type="checkbox" name="checkIds" 
+										value="${wastemanageplan.ids!}" class="flat-grey foocheck">
+								</td>
+
+								<td>
+										${escapeXml(wastemanageplan["year"]!)}
+								</td>
+								<td>
+									${escapeXml(wastemanageplan["documentname"]!)}
+								</td>
+								<td>
+									${escapeXml(wastemanageplan["environmentname"]!)}
+								</td>
+								<td>
+									${escapeXml(wastemanageplan["environmentphone"]!)}
+								</td>
+
+								<td>
+									${escapeXml(wastemanageplan["createdtime"]!)}
+								</td>
+								<td>
+									${escapeXml(wastemanageplan["statename"]!)}
+								</td>
+
+
+								<td class="hidden-xs">
+									<% if(view == true){ %>
+									<button type="button" class="btn btn-dark-yellow add-row" 
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/manageplan/wastemanageplan/view/${wastemanageplan.ids!}');">
+										${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+									</button>
+									<% } %>
+										
+									<% if(edit == true){ %>
+									<button type="button" class="btn btn-green edit-row" 
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/manageplan/wastemanageplan/edit/${escapeXml(wastemanageplan.ids!)}');">
+										${i18nMap["admin.common.edit"]} 
+										<i class="fa fa-edit"></i>
+									</button>
+									<% } %>
+									
+									<% if(delete == true){ %>
+									<button type="button" class="btn btn-red delete-row" 
+										data-bb="deleteOne" 
+										data-url="/jf/manageplan/wastemanageplan/delete/${wastemanageplan.ids!}">
+										${i18nMap["admin.common.delete"]} 
+										<i class="fa fa-trash-o"></i>
+									</button>
+									<% } %>
+								</td>
+							</tr>
+							<% } %>
+							
+						</tbody>
+					</table>
+					
+					<div class="row" id="splitPageDiv">
+						<% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+					</div>
+					
+				</div>
+			
+			</div>
+			<!-- end: BORDERED TABLE PANEL -->
+		</div>
+	</div>
+	
+</form>			
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		common_form.init();
+	});
+</script>

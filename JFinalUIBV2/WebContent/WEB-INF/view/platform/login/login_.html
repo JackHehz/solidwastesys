@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- Template Name: Rapido - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.0 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8 no-js" lang="zh-CN"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="zh-CN"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-CN" class="no-js">
+	<!--<![endif]-->
+	
+	<!-- start: HEAD -->
+	<head>
+		<title>登陆</title>
+		
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		
+		<!-- start: MAIN CSS -->
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/animate.css/animate.min.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/iCheck/skins/all.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/css/styles.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/css/styles-responsive.css">
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/iCheck/skins/all.css">
+		<!--[if IE 7]>
+		<link rel="stylesheet" href="${cxt!}/ui/rapido/assets/plugins/font-awesome/css/font-awesome-ie7.min.css">
+		<![endif]-->
+		<!-- end: MAIN CSS -->
+		
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+		
+		<!-- start: The fav icon -->
+		<link rel="icon" href="${cxt!}/files/images/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="${cxt!}/files/images/favicon.ico" type="image/x-icon" />
+		<!-- end: The fav icon -->
+		
+		<!-- start: common js -->
+		<script type="text/javascript">
+			var cxt = "${cxt!}";
+		</script>	
+		<!-- end: common js -->
+	</head>
+	<!-- end: HEAD -->
+	
+	<!-- start: BODY -->
+	<body class="login">
+		<div class="row">
+			<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+				
+				<div class="logo">
+					<img src="${cxt!}/ui/rapido/assets/images/logo.png">
+				</div>
+				
+				<!-- start: LOGIN BOX -->
+				<div class="box-login">
+					<h3>登录到您的帐户</h3>
+					<p>请输入您的用户名和密码登录。</p>
+					
+					<form class="form-login" action="${cxt!}/jf/platform/login/vali" method="post">
+						<div class="errorHandler alert alert-danger no-display">
+							<i class="fa fa-remove-sign"></i> 用户名或密码有误，请检查！
+						</div>
+						<fieldset>
+							<div class="form-group">
+								<span class="input-icon">
+									<input type="text" class="form-control" id="login_username" name="username" value="${cookieMap.userName.value!}" placeholder="账号">
+									<i class="fa fa-user"></i> 
+								</span>
+							</div>
+							
+							<div class="form-group form-actions">
+								<span class="input-icon">
+									<input type="password" class="form-control password" id="login_password" name="password" placeholder="密码">
+									<i class="fa fa-lock"></i>
+									<a class="forgot" href="#">忘记了密码？</a> 
+								</span>
+							</div>
+							
+							<div class="form-group form-actions">
+								<span class="input-icon">
+									<input type="text" class="form-control password" name="authCode" placeholder="验证码">
+									<i class="fa fa-lock"></i>
+									<a href="#" onclick="showImage(this);" class="forgot">${i18nMap["admin.login.clickAuthCode"]}</a>
+								</span>
+							</div>
+							
+							<div class="form-actions">
+
+								<button type="submit" class="btn btn-green pull-right">
+									登陆 <i class="fa fa-arrow-circle-right"></i>
+								</button>
+							</div>
+							<div class="new-account">
+								还没有一个帐户吗？<a href="#" class="register">创建一个账户</a>
+							</div>
+						</fieldset>
+					</form>
+					
+					<!-- start: COPYRIGHT -->
+					<div class="copyright">
+						2015 &copy; JfinalUIB.
+					</div>
+					<!-- end: COPYRIGHT -->
+				</div>
+				<!-- end: LOGIN BOX -->
+				
+				<!-- start: FORGOT BOX -->
+				<div class="box-forgot">
+					<h3>忘记密码？</h3>
+					<p>请下面输入您的电子邮件地址，重新设置您的密码。</p>
+					
+					<form class="form-forgot">
+						<div class="errorHandler alert alert-danger no-display">
+							<i class="fa fa-remove-sign"></i> 输入有误，请检查！
+						</div>
+						<fieldset>
+							<div class="form-group">
+								<span class="input-icon">
+									<input type="email" class="form-control" name="email" placeholder="邮箱">
+									<i class="fa fa-envelope"></i> 
+								</span>
+							</div>
+							<div class="form-actions">
+								<a class="btn btn-light-grey go-back"><i class="fa fa-chevron-circle-left"></i> 返回登陆</a>
+								<button type="button" class="btn btn-green pull-right">
+									提交 <i class="fa fa-arrow-circle-right"></i>
+								</button>
+							</div>
+						</fieldset>
+					</form>
+					
+					<!-- start: COPYRIGHT -->
+					<div class="copyright">
+						2015 &copy; JfinalUIB.
+					</div>
+					<!-- end: COPYRIGHT -->
+				</div>
+				<!-- end: FORGOT BOX -->
+				
+				<!-- start: REGISTER BOX -->
+				<div class="box-register">
+					<h3>注册</h3>
+					<p>请输入您的个人信息：</p>
+					<form class="form-register" id="editForm" action="${cxt!}/jf/platform/user/rigester" method="POST" role="form">
+						<div class="errorHandler alert alert-danger no-display">
+							<i class="fa fa-remove-sign"></i> 输入有误， 请检查！
+						</div>
+						<fieldset>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.idcard"]}</label>
+								<div class="col-sm-7">
+									<input type="text" id="idcardId" name="userInfo.idcard" value="${escapeXml(userInfo.idcard!)}"
+										   class="form-control" maxlength="18" vMin="15" vType="idCard" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 15-18位字母数字 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.nickname"]}</label>
+								<div class="col-sm-7">
+									<input type="text" name="userInfo.names" value="${escapeXml(userInfo.names!)}"
+										   class="form-control" maxlength="10" vMin="2" vType="length" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 2-10位任意字符 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.userName"]}</label>
+								<div class="col-sm-7">
+									<input type="text" id="usernameId" name="user.username" value="${escapeXml(user.username!)}"
+										   class="form-control" maxlength="16" vMin="5" vType="letterNumber" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 5-16位字母数字 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.password"]}</label>
+								<div class="col-sm-7">
+									<input type="password" id="pass1Id" name="password" class="form-control" autocomplete="off"
+										   maxlength="18" vType="letterNumber" onblur="platform_user_form.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 6-18位字母数字 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.password"]}</label>
+								<div class="col-sm-7">
+									<input type="password" id="pass2Id" class="form-control" autocomplete="off"
+										   maxlength="18" vType="letterNumber" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 6-18位字母数字 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.email"]}</label>
+								<div class="col-sm-7">
+									<input type="text" id="mailboxId" name="userInfo.email" value="${escapeXml(userInfo.email!)}"
+										   class="form-control" maxlength="30" vMin="6" vType="email" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 6-30位邮箱规则 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.mobilePhone"]}</label>
+								<div class="col-sm-7">
+									<input type="text" id="mobileId" name="userInfo.mobile" value="${escapeXml(userInfo.mobile!)}"
+										   class="form-control" maxlength="11" vMin="11" vType="phone" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 11位数字 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.telephone"]}</label>
+								<div class="col-sm-7">
+									<input type="text" name="userInfo.telephone" value="${escapeXml(userInfo.telephone!)}"
+										   class="form-control" maxlength="20" vMin="0" vType="tell" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 5-20位 </span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">${i18nMap["admin.user.property.qq"]}</label>
+								<div class="col-sm-7">
+									<input type="text" name="userInfo.qq" value="${escapeXml(userInfo.qq!)}"
+										   class="form-control" maxlength="20" vMin="0" vType="qq" onblur="platform_verify.onblurVali(this);">
+								</div>
+								<span class="help-inline col-sm-2"> <i class="fa fa-info-circle"></i> 5-20位数字 </span>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-2 col-sm-offset-3">
+									<button type="submit" class="btn btn-red" onclick="platform_verify.submitValiFunc(this.form, true);">
+										${i18nMap["admin.common.submit"]}	<i class="fa fa-arrow-circle-right"></i>
+									</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+					<!-- start: COPYRIGHT -->
+					<div class="copyright">
+						2015 &copy; JfinalUIB.
+					</div>
+					<!-- end: COPYRIGHT -->
+				</div>
+				<!-- end: REGISTER BOX -->
+				
+			</div>
+		</div>
+		
+		<!-- start: MAIN JAVASCRIPTS -->
+		<!--[if lt IE 9]>
+		<script src="${cxt!}/ui/rapido/assets/plugins/respond.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/plugins/excanvas.min.js"></script>
+		<script type="text/javascript" src="${cxt!}/ui/rapido/assets/plugins/jQuery/jquery-1.11.1.min.js"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="${cxt!}/ui/rapido/assets/plugins/jQuery/jquery-2.1.1.min.js"></script>
+		<!--<![endif]-->
+		<script src="${cxt!}/ui/rapido/assets/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/plugins/iCheck/jquery.icheck.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/plugins/jquery.transit/jquery.transit.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/plugins/TouchSwipe/jquery.touchSwipe.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/js/main.js"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="${cxt!}/ui/rapido/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+		<script src="${cxt!}/ui/rapido/assets/js/login.js"></script>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script type="text/javascript" src="${cxt!}/jsFile/rapido/platform/user/form.js"></script>
+
+
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				Main.init();
+				Login.init();
+				common_form.init();
+
+
+				// 初始化页面焦点
+				var userName = $("#login_username");
+				if(userName.val() == ""){
+					userName.focus();
+				}else{
+					$("#login_password").focus();
+				}
+				
+				// 键盘回车事件
+// 				var tds = $("html"); 
+// 				tds.keydown(function(event){
+// 					var myEvent = event || window.event; //解决不同浏览器获取事件对象的差异
+// 						switch(myEvent.keyCode) {
+// 							case 13://回车事件
+// 								validata(); break;
+// 						}
+// 				});
+			});
+			
+
+			function showImage(node){
+				var imageHtml = '<a href="#" onclick="showImage(this);" class="forgot"><img id="yanZhengMa" src="${cxt!}/jf/platform/authImg?rand=' + Math.random() + '" width="100" height="18"/></a>';
+				$(node).replaceWith(imageHtml);
+			}
+
+		</script>
+	</body>
+	<!-- end: BODY -->
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="commonsearch.hangyeleibie">
+
+	<!-- 根节点 -->
+	<sql id="root">
+		<![CDATA[
+        	select ids,name, isparent
+        	from hangyeleibie where hangyeleibie_fk is null order by ids asc
+    	]]>
+	</sql>
+
+	<!-- 子节点 -->
+	<sql id="child">
+		<![CDATA[
+        	select ids, name, isparent from hangyeleibie where hangyeleibie_fk = ? order by ids asc
+    	]]>
+	</sql>
+
+	<!-- 子节点数量 -->
+	<sql id="childCount">
+		<![CDATA[
+        	select count(*) as counts from hangyeleibie where hangyeleibie_fk = ?
+    	]]>
+	</sql>
+
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		hangyeleibie
+			
+			where 1=1 
+				
+    	]]>
+	</sql>
+	
+</sql-statement>

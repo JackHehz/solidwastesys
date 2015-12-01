@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="manageplan.wastemanageplan">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_wastemanageplan
+			
+			where 1=1
+
+			<% if(!isEmpty(statename)){ %>
+					and statename like #'%$statename$%'#
+			<% } %>
+
+			<% if(!isEmpty(year)){ %>
+					and year like #'%$year$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+	<sql id="splitpageFrom">
+		<![CDATA[
+        	from
+        		n_wastemanageplan a left join n_bcommonenterprises b on a.createdby=b.createdby
+
+			where a.createdby=  '${ids}'
+
+			<% if(!isEmpty(statename)){ %>
+					and statename like #'%$statename$%'#
+			<% } %>
+
+			<% if(!isEmpty(year)){ %>
+					and year like #'%$year$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+</sql-statement>

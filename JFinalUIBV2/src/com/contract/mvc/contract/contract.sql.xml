@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="contract.contract">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_contract
+			
+			where 1=1 
+			
+			<% if(!isEmpty(jiafang)){ %>
+					and jiafang like #'%$jiafang$%'#
+			<% } %>
+
+			<% if(!isEmpty(yifang)){ %>
+					and yifang like #'%$yifang$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+	<sql id="splitpageFrom">
+		<![CDATA[
+        	from
+        		n_contract
+
+			where createdby='${ids}'
+			
+			<% if(!isEmpty(jiafang)){ %>
+					and jiafang like #'%$jiafang$%'#
+			<% } %>
+
+			<% if(!isEmpty(yifang)){ %>
+					and yifang like #'%$yifang$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+</sql-statement>

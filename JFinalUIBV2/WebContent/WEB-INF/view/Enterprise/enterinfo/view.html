@@ -1,0 +1,66 @@
+
+
+<div class="modal-header" >
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+				<h4 ><span class="text-bold">查看</span></h4>
+
+			</div>
+			
+			<div class="modal-body">
+				<form role="form" class="form-horizontal">
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">单位名称</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+							readonly="readonly" value="${escapeXml(enterinfo.name!)}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">单位机构代码</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" 
+							readonly="readonly" value="${escapeXml(enterinfo.unitorgcode!)}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">行政区域</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								   readonly="readonly" value="${escapeXml(enterinfo.county!)}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">单位地址</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								   readonly="readonly" value="${escapeXml(enterinfo.address!)}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">法人代表</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								   readonly="readonly" value="${escapeXml(enterinfo.legalperson!)}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">联系人</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								   readonly="readonly" value="${escapeXml(enterinfo.linkman!)}">
+						</div>
+					</div>
+
+					
+				</form>
+			</div>
+		<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn">${i18nMap["admin.common.close"]}</button>
+		</div>
+		
+
+
+

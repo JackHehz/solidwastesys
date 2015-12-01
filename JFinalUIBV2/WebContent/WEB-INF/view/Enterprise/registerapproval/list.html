@@ -1,0 +1,254 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="#" onclick="common_ajax.ajaxMainPanel('/jf/Enterprise/index/content');">${i18nMap["admin.common.mainPage"]}</a></li>
+			<li class="active">企业管理</li>
+		</ol>
+	</div>
+</div>
+						
+<form id="splitPage" class="form-horizontal" action="${cxt!}/jf/Enterprise/registerapproval" method="POST">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title"><span class="text-bold">企业注册审核查询</span></h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<div class="panel-body">		
+				  	<div class="form-group">
+				  	
+						<label class="col-sm-2 control-label" for="focusedInput">企业账号</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.wastename" value='${escapeXml(paramMap["_query.wastename"])}'
+						 	maxlength="50" >
+						</div>
+								
+						<label class="col-sm-2 control-label" for="focusedInput">状态</label>
+						<div class="col-sm-4">
+						 	<input class="form-control focused" type="text" 
+						 	name="_query.wastetype" value='${escapeXml(paramMap["_query.wastetype"])}'
+						 	maxlength="50" >
+						</div>
+
+				  	</div>
+				  	
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-5">
+							<button type="button" class="btn btn-primary" onclick='common_ajax.ajaxFormMainPanel("splitPage");'>${i18nMap["admin.common.select"]}</button>
+							<button type="reset" class="btn">${i18nMap["admin.common.reset"]}</button>
+						</div>
+				  	</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- start: BORDERED TABLE PANEL -->
+			<div class="panel panel-white">
+				
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<span class="text-bold">注册审核列表</span>
+					</h4>
+					<div class="panel-tools">										
+						<% include("/common/panel-tools.html"){} %>
+					</div>
+				</div>
+				
+				<%
+					var edit = authUrl("/jf/Enterprise/registerapproval/edit");
+					var delete = authUrl("/jf/Enterprise/registerapproval/delete");
+					var view = authUrl("/jf/Enterprise/registerapproval/view");
+					var activate = authUrl("/jf/Enterprise/registerapproval/activate");
+					var pause = authUrl("/jf/Enterprise/registerapproval/pause");
+					var resetpw = authUrl("/jf/Enterprise/registerapproval/resetpw");
+
+				%>
+				
+				<div class="panel-body">
+					
+					<div class="row">
+						<div class="col-md-12 space20">
+						
+							<% if(authUrl("/Enterprise/registerapproval/add.html")){ %>
+								<button type="button" class="btn btn-success add-row" 
+									onclick="common_ajax.ajaxMainPanel('/jf/Enterprise/registerapproval/toUrl?toUrl=/Enterprise/registerapproval/add.html');">
+									添加 <i class="fa fa-plus"></i>
+								</button>
+							<% } %>	
+							
+							<% if(delete == true){ %>
+								<button type="button" class="btn btn-red delete-row" 
+									data-bb="deleteList" data-url="/jf/Enterprise/registerapproval/delete">
+									${i18nMap["admin.common.delete"]} <i class="fa fa-trash-o"></i>
+								</button>
+							<% } %>
+
+						</div>
+					</div>
+					
+					<table class="table table-bordered table-hover" id="dataTable">
+						<thead>
+							<tr>
+							
+								<th class="center hidden-xs" width="50">
+									<input type="checkbox" name="checkAll" class="flat-grey selectall" 
+										onchange="common_common.checkFunc('dataTable', this.checked);"> 
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wastename')">
+									单位名称	${orderBy("wastename")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wastetype')">
+									行政区域	${orderBy("wastetype")}
+								</th>
+
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'dangerelement')">
+									企业类型	${orderBy("dangerelement")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wasteshape')">
+									状态	${orderBy("wasteshape")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wastesourceofddl')">
+									创建日期	${orderBy("wastesourceofddl")}
+								</th>
+								<th class="hidden-xs" onclick="common_splitPage.orderbyFun(
+										'mainPanel', 'splitPage', 'wastecode')">
+									操作	${orderBy("wastecode")}
+								</th>
+								<th class="hidden-xs">
+									查看
+								</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+							<% for(registerapproval in splitPage.list){ %>
+							<tr>
+								<td class="center hidden-xs">
+									<input type="checkbox" name="checkIds" 
+										value="${registerapproval.ids!}" class="flat-grey foocheck">
+								</td>
+								<td>
+
+										${escapeXml(registerapproval["wastename"]!)}
+
+								</td>
+								<td>
+
+									${escapeXml(registerapproval["wastetype"]!)}
+
+								</td>
+								<td>
+
+									${escapeXml(registerapproval["dangerelement"]!)}
+
+								</td>
+								<td>
+
+									${escapeXml(registerapproval["wasteshape"]!)}
+
+								</td>
+								<td>
+
+									${escapeXml(registerapproval["wastesourceofddl"]!)}
+
+								</td>
+								<td>
+
+									<% if(activate == true){ %>
+									<button type="button" class="btn btn-dark-yellow add-row"
+											onclick="common_ajax.ajaxMainPanel(
+												'/jf/Enterprise/registerapproval/view/${registerapproval.ids!}');">
+										${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+									</button>
+									<% } %>
+
+									<% if(pause == true){ %>
+									<button type="button" class="btn btn-green edit-row"
+											onclick="common_ajax.ajaxMainPanel(
+												'/jf/Enterprise/registerapproval/edit/${escapeXml(registerapproval.ids!)}');">
+										${i18nMap["admin.common.edit"]}
+										<i class="fa fa-edit"></i>
+									</button>
+									<% } %>
+
+									<% if(resetpw == true){ %>
+									<button type="button" class="btn btn-red delete-row"
+											data-bb="deleteOne"
+											data-url="/jf/Enterprise/registerapproval/delete/${registerapproval.ids!}">
+										${i18nMap["admin.common.delete"]}
+										<i class="fa fa-trash-o"></i>
+									</button>
+									<% } %>
+
+								</td>
+
+								<td class="hidden-xs">
+									<% if(view == true){ %>
+									<button type="button" class="btn btn-dark-yellow add-row" 
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/Enterprise/registerapproval/view/${registerapproval.ids!}');">
+										${i18nMap["admin.common.see"]} <i class="fa fa-eye"></i>
+									</button>
+									<% } %>
+										
+									<% if(edit == true){ %>
+									<button type="button" class="btn btn-green edit-row" 
+										onclick="common_ajax.ajaxMainPanel(
+												'/jf/Enterprise/registerapproval/edit/${escapeXml(registerapproval.ids!)}');">
+										${i18nMap["admin.common.edit"]} 
+										<i class="fa fa-edit"></i>
+									</button>
+									<% } %>
+									
+									<% if(delete == true){ %>
+									<button type="button" class="btn btn-red delete-row" 
+										data-bb="deleteOne" 
+										data-url="/jf/Enterprise/registerapproval/delete/${registerapproval.ids!}">
+										${i18nMap["admin.common.delete"]} 
+										<i class="fa fa-trash-o"></i>
+									</button>
+									<% } %>
+								</td>
+							</tr>
+							<% } %>
+							
+						</tbody>
+					</table>
+					
+					<div class="row" id="splitPageDiv">
+						<% include("/common/splitPage.html", {"divId" : "mainPanel", "formId" : "splitPage", "splitPageDiv" : "splitPageDiv"}){} %>
+					</div>
+					
+				</div>
+			
+			</div>
+			<!-- end: BORDERED TABLE PANEL -->
+		</div>
+	</div>
+	
+</form>			
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		common_form.init();
+	});
+</script>

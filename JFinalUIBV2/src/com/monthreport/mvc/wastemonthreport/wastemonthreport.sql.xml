@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="monthreport.wastemonthreport">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_mmonthreport
+			
+			where 1=1
+			<% if(!isEmpty(medicalorg)){ %>
+					and medicalorg like #'%$medicalorg$%'#
+			<% } %>
+
+			<% if(!isEmpty(reportmonth)){ %>
+					and reportmonth like #'%$reportmonth$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+	
+</sql-statement>

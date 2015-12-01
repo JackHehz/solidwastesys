@@ -1,0 +1,68 @@
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">单位名称</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.name" value="${escapeXml(msjwastecolldisp.name!)}"
+			class="form-control" maxlength="100" vMin="0"
+			vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2"> 
+		<i class="fa fa-info-circle"></i> 1-50位任意字符 
+	</span>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-2 control-label">日期</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.date" value="${escapeXml(msjwastecolldisp.date!)}"
+			class="form-control" maxlength="10000" vMin="0"
+			vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2"> 
+		<i class="fa fa-info-circle"></i> 1-50位任意字符 
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">废物类别</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.wastetype" value="${escapeXml(msjwastecolldisp.wastetype!)}"
+			   class="form-control" maxlength="10000" vMin="0"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">处置量</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.disnum" value="${escapeXml(msjwastecolldisp.disnum!)}"
+			   class="form-control" maxlength="10000" vMin="0"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">处置剩余量</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.wasteunit" value="${escapeXml(msjwastecolldisp.wasteunit!)}"
+			   class="form-control" maxlength="10000" vMin="0"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>
+<div class="form-group">
+	<label class="col-sm-2 control-label">处置方式</label>
+	<div class="col-sm-7">
+		<input type="text" name="msjwastecolldisp.deaway" value="${escapeXml(msjwastecolldisp.deaway!)}"
+			   class="form-control" maxlength="10000" vMin="0"
+			   vType="length" onblur="platform_verify.onblurVali(this);">
+	</div>
+	<span class="help-inline col-sm-2">
+		<i class="fa fa-info-circle"></i> 1-50位任意字符
+	</span>
+</div>

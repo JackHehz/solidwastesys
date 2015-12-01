@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sql-statement namespace="manifest.tranmanifest">
+	
+	<!-- 分页查询：from -->
+	<sql id="splitPageFrom">
+		<![CDATA[ 
+        	from 
+        		n_manifest
+			
+			where 1=1
+
+			<% if(!isEmpty(transunitname)){ %>
+					and transunitname like #'%$transunitname$%'#
+			<% } %>
+
+			<% if(!isEmpty(receivername)){ %>
+					and receivername like #'%$receivername$%'#
+			<% } %>
+				
+    	]]>
+	</sql>
+
+	<sql id="splitpageFrom">
+		<![CDATA[
+        	from
+        		n_manifest
+
+			where createdbyids=  '${ids}'
+
+			<% if(!isEmpty(transunitname)){ %>
+					and transunitname like #'%$transunitname$%'#
+			<% } %>
+
+			<% if(!isEmpty(receivername)){ %>
+					and receivername like #'%$receivername$%'#
+			<% } %>
+
+    	]]>
+	</sql>
+
+
+</sql-statement>
